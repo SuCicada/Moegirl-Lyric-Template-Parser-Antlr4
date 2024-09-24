@@ -1,0 +1,44 @@
+.mw-parser-output {
+    font-size: 18px;
+}
+
+.mw-parser-output .Lyrics {
+    display: inline-block;
+}
+
+.mw-parser-output .Lyrics.Lyrics-has-ruby .Lyrics-original, .mw-parser-output .Lyrics.Lyrics-has-ruby .Lyrics-translated {
+    line-height: 2.1
+}
+
+.mw-parser-output .Lyrics.Lyrics-no-ruby .Lyrics-original, .mw-parser-output .Lyrics.Lyrics-no-ruby .Lyrics-translated {
+    vertical-align: top
+}
+
+.mw-parser-output .Lyrics .Lyrics-original, .mw-parser-output .Lyrics .Lyrics-translated {
+    width: 100%;
+    display: inline-block;
+    white-space: pre-wrap
+}
+
+@media all and (max-width: 720px) {
+    .mw-parser-output .Lyrics {
+        min-width: 100%
+    }
+}
+
+@media all and (min-width: 720px) {
+    .mw-parser-output .Lyrics .Lyrics-original, .mw-parser-output .Lyrics .Lyrics-translated {
+        width: 47.85%
+    }
+}
+
+/*  用来隐藏注音 */
+rb[data-id="template-ruby"]::before, .template-ruby-hidden {
+    display: inline-block;
+    width: 0;
+    font-size: 0;
+}
+
+body.photrans-ruby-hidden ruby.photrans > rt {
+    display: none;
+}
