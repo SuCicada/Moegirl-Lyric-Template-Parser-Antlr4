@@ -42,3 +42,7 @@ rb[data-id="template-ruby"]::before, .template-ruby-hidden {
 body.photrans-ruby-hidden ruby.photrans > rt {
     display: none;
 }
+
+.photrans > rt {
+    font-size:0.75em;
+}

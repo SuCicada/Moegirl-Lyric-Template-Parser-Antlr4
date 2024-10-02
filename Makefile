@@ -7,3 +7,9 @@ gen-antlr4:
 
 clean:
 	ts-clean-built --built
+
+build:
+	yarn build
+
+watch:
+	npx webpack watch

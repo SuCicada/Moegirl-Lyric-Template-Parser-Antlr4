@@ -140,3 +140,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+gen/*
+!gen/Moegirl*
+

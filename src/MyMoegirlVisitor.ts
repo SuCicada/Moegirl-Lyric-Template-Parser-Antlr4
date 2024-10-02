@@ -17,10 +17,28 @@ export default class MyMoegirlVisitor extends MoegirlVisitor<string> {
     reserveWidth: "267px"
   }
   getCSS = () => {
-    return myCss
+    // language=HTML
+    return `
+      <style>
+        ${myCss}
+        .Lyrics-original {
+          ${this.lstyle}
+        }
+
+        .Lyrics-translated {
+          ${this.rstyle}
+        }
+
+        .Lyrics .Lyrics-has-ruby {
+          width: calc(${this.lyricsKaiStyle.width} - ${this.lyricsKaiStyle.reserveWidth});
+        }
+      </style>
+    `
   }
   postRender = (visitRes: string) => {
-    return  `
+
+
+    return `
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=2, user-scalable=yes">
 <!--    添加到主屏幕后，全屏显示。-->
@@ -28,9 +46,7 @@ export default class MyMoegirlVisitor extends MoegirlVisitor<string> {
 <!--    这meta的作用就是删除默认的苹果工具栏和菜单栏。content有两个值”yes”和”no”,当我们需要显示工具栏和菜单栏时，这个行meta就不用加了，默认就是显示。-->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<style>
 ${this.getCSS()}
-</style>
 <div class="mw-parser-output">
   ${visitRes}
 </div>
@@ -49,14 +65,13 @@ ${this.getCSS()}
     res = this.postRender(res)
     return res
   }
-
   visitPhotrans = (ctx: PhotransContext) => {
     // console.log("Visited photrans: " + ctx);
     // ctx.tag()
     const kanji = ctx.kanji().getText().trim()
     const hiragana = ctx.hiragana().getText().trim()
     return `
-        <ruby class="photrans"> ${kanji} <rp>(</rp><rt>${hiragana}</rt><rp>)</rp> </ruby>
+        <ruby class="photrans">${kanji}<rp>(</rp><rt>${hiragana}</rt><rp>)</rp></ruby>
         `.trim()
     // return `<ruby class="photrans"><rb>${kanji}</rb>` +
     //     `<rt style="font-size:0.75em">` +
@@ -99,34 +114,40 @@ ${this.getCSS()}
       }
     }
 
-    let res = ""
     const originals = ctx.lyricsKaiOriginal().oneLine_list()
     const translateds = ctx.lyricsKaiTranslated().oneLine_list()
+
+    let Lyrics_line_html = ''
     for (let i = 0; i < originals.length; i++) {
       const original = this.visit(originals[i])
       const translated = this.visit(translateds[i])
-      res += `
+      Lyrics_line_html += `
    <div class="Lyrics-line">
     <div class="Lyrics-original"><span lang="ja">${original}</span></div>
     <div class="Lyrics-translated"><span lang="zh">${translated}</span></div>
-   </div>
-`
+   </div>`
     }
-    return res
+
+    return `
+    <div class="Lyrics Lyrics-has-ruby">
+        ${Lyrics_line_html}
+    </div>
+    `
   }
 
   visitOneLine = (ctx: OneLineContext) => {
     // const newlines = new Array(ctx.NEWLINE_list().length).join('<br>')
     // return this.visit(ctx)
     if (ctx.children) {
-      return ctx.children.map(child => {
+      const res = ctx.children.map(child => {
         return this.visit(child)
       }).join('')
+      return res.trim();
     }
     return ''
   }
   visitNewline = (ctx: any) => {
-    return '<br>\n'
+    return '\n'
   }
   visitColor = (ctx: ColorContext) => {
     // ctx.BRACKET_OPEN()
