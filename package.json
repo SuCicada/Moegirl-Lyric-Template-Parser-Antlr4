@@ -2,6 +2,11 @@
   "name": "moegirl-lyric-template-parser-antlr4",
   "version": "1.0.0",
   "author": "SuCicaada",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SuCicada/Moegirl-Lyric-Template-Parser-Antlr4"
+  },
+  "homepage": "https://github.com/SuCicada/Moegirl-Lyric-Template-Parser-Antlr4",
   "main": "dist/bundle.js",
   "types": "dist/types/src/index.d.ts",
   "scripts": {
