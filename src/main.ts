@@ -1,10 +1,10 @@
-import MoegirlLexer from '../gen/MoegirlLexer';
+import MoegirlLexer from '@/gen/MoegirlLexer';
 import MoegirlParser, {
   ColorContext, PhotransContext, SentenceContext
-} from '../gen/MoegirlParser';
+} from '@/gen/MoegirlParser';
 import MoegirlVisitor from '../gen/MoegirlVisitor';
 import {CharStream, CommonTokenStream, InputStream, CharStreams} from 'antlr4';
-import MyMoegirlVisitor from "./MyMoegirlVisitor";
+import MyMoegirlVisitor from "@/MyMoegirlVisitor";
 // 自定义 Visitor 实现
 
 // 示例输入

@@ -1,4 +1,9 @@
 {
+  "name": "moegirl-lyric-template-parser-antlr4",
+  "version": "1.0.0",
+  "author": "SuCicaada",
+  "main": "dist/bundle.js",
+  "types": "dist/types/src/index.d.ts",
   "scripts": {
     "build": "webpack"
   },

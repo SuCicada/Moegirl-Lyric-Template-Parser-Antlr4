@@ -8,6 +8,8 @@
       "es2017",
       "esnext.asynciterable"
     ],
+    "declaration": true,  // ← 追記（コンパイルしたtsファイルの中でexportしているもの全ての型定義ファイルを出力する）
+    "declarationDir": "./dist/types",  // 声明文件输出目录
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -32,7 +34,12 @@
     //    ]
     //    "isolatedModules": true,
     "paths": {
-      //      "@/*": ["src/*"]  // 定义路径别名
+      "@/*": [
+        "src/*"
+      ],
+        "@/gen/*": [
+            "gen/*"
+        ]
     }
   },
   "exclude": [
@@ -40,14 +47,14 @@
   ],
   "include": [
     "./**/*.ts",
-    "./**/*.d.ts"
-    //    "./src/*.css"
+    "./**/*.d.ts",
+    "./src/*.ts",
+    "./gen/*.ts"
   ],
   "ts-node": {
     "files": true,
     "require": [
-      "./file-loader.js",
-//      "raw-loader"
+      "./file-loader.js"
     ]
   }
 }

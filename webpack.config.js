@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: './src/main.ts',
+    entry: './src/index.ts',
     module: {
         rules: [
             {
@@ -26,11 +26,17 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            "@/gen": path.resolve(__dirname, 'gen'),
+            "@": path.resolve(__dirname, 'src'),
+        }
     },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'MoegirlLyric',  // 设置导出的库名称
-        libraryTarget: 'var',  // 使用全局变量方式导出
+        // libraryTarget: 'var',  // 使用全局变量方式导出
+        libraryTarget: 'umd',  // 通用模块定义
+        globalObject: 'this',
     },
 };

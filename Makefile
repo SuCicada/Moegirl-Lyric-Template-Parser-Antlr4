@@ -9,7 +9,7 @@ clean:
 	ts-clean-built --built
 
 build:
-	yarn build
+	pnpm build
 
 watch:
 	npx webpack watch
