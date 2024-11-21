@@ -1,5 +1,14 @@
 src
-antlr4
-gen
 test
+gen
+!/dist/types/gen/*
+!/dist/types/src/*
+/antlr4
 /*.js
+/.idea
+/node_modules
+/text.txt
+/dev.md
+/Makefile
+/.editorconfig
+/*.tgz

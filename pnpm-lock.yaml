@@ -11,6 +11,9 @@ importers:
       antlr4:
         specifier: ^4.13.1
         version: 4.13.2
+      moegirl-lyric-template-parser-antlr4:
+        specifier: 'link:'
+        version: 'link:'
     devDependencies:
       '@jest/globals':
         specifier: ^29.7.0
