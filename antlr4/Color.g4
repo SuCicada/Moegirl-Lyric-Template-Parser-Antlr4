@@ -5,7 +5,17 @@ color
   : BRACKET_OPEN
   'color'
   '|' colorValue
-  '|' sentence
+  '|' NEWLINE*
+    ((sentence|color|coloredlink) newline*)+
+   BRACKET_CLOSE
+  ;
+// {{Coloredlink|颜色|页面链接|欲显示文字}}
+coloredlink:
+  BRACKET_OPEN
+  'coloredlink'
+  '|' colorValue
+   ('|' STRING )?
+   ('|' STRING )?
    BRACKET_CLOSE
   ;
 

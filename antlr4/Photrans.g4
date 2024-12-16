@@ -1,10 +1,14 @@
 grammar Photrans;
 import Common;
 photrans
-  : BRACKET_OPEN tag '|' kanji '|' hiragana BRACKET_CLOSE
+  : BRACKET_OPEN
+   TAG '|' kanji '|' hiragana
+   ('|' STRING)?
+   ('|' STRING)?
+   BRACKET_CLOSE
   ;
 
-tag
+TAG
   : 'Photrans2'
   | 'Photrans'
   | 'PT'
@@ -21,6 +25,6 @@ otherwords: STRING;
 // 混杂的句子
 sentence: (otherwords | photrans)+;
 
-STRING: (~["\n|{}])+;
+STRING: (~[\n|{}])+;
 newline: NEWLINE ;
 NEWLINE : '\r'? '\n' ;
