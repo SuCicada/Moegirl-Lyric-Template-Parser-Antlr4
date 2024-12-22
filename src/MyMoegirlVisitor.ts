@@ -1,20 +1,22 @@
 import MoegirlVisitor from "../gen/MoegirlVisitor";
 import MoegirlParser, {
-  ColorContext, LyricsKaiContext, OneLineContext,
+  ColorContext, LyricsKaiContext,
   PhotransContext,
-  SentenceContext,
+  Template_LjContext,
   WorldContext
 } from "../gen/MoegirlParser";
 import {CharStream, CommonTokenStream, ParseTree,} from "antlr4";
 import MoegirlLexer from "../gen/MoegirlLexer";
 import myCss from "./my.css"
+import {ColoredlinkContext, OtherwordsContext} from "@/gen/ColorParser";
 
+const BR = "<br>"
 export default class MyMoegirlVisitor extends MoegirlVisitor<string> {
   lstyle = ''
   rstyle = ''
   lyricsKaiStyle: any = {
     width: "100%",
-    reserveWidth: "267px"
+    reserveWidth: "260px"
   }
   getCSS = () => {
     // language=HTML
@@ -54,14 +56,18 @@ ${this.getCSS()}
   }
   visitWorld = (ctx: WorldContext) => {
     let res = ''
+    // res = this.visit(ctx)
 
-    if (ctx.lyricsKai()) {
-      res = this.visit(ctx.lyricsKai());
-    } else if (ctx.oneLine_list()) {
-      res = ctx.oneLine_list().map(one_line =>
+    if (ctx.oneLineContent_list()) {
+      res += ctx.oneLineContent_list().map(one_line =>
         this.visit(one_line)
       ).join('');
     }
+
+    if (ctx.lyricsKai()) {
+      res += this.visit(ctx.lyricsKai());
+    }
+
     res = this.postRender(res)
     return res
   }
@@ -80,21 +86,22 @@ ${this.getCSS()}
     //     `</rt></ruby>`
   }
 
-  visitOtherwords = (ctx: any) => {
-    return ctx.getText()
+  visitOtherwords = (ctx: OtherwordsContext) => {
+    return ctx.getText().trim()
   }
 
-  visitSentence = (ctx: SentenceContext) => {
-    if (ctx.children) {
-      return ctx.children.map(child => this.visit(child)).join('')
-    }
-    return ''
-  }
+  // visitSentence = (ctx: SentenceContext) => {
+  //   if (ctx.children) {
+  //     return ctx.children.map(child => this.visit(child)).join('')
+  //   }
+  //   return ''
+  // }
 
   // visitOne_line = (ctx: One_lineContext) => {
   // const res = ctx.
   // return this.visit(ctx.sentence())
   // }
+
   visitLyricsKai = (ctx: LyricsKaiContext) => {
     // let lstyle = ''
     // let rstyle = ''
@@ -114,13 +121,27 @@ ${this.getCSS()}
       }
     }
 
-    const originals = ctx.lyricsKaiOriginal().oneLine_list()
-    const translateds = ctx.lyricsKaiTranslated().oneLine_list()
+    const originals = ctx.lyricsKaiOriginal().oneLineContent_list()
+    const translateds = ctx.lyricsKaiTranslated().oneLineContent_list()
 
+    const originals_visited = originals.map(original => this.visit(original))
+    const translateds_visited = translateds.map(translated => this.visit(translated))
+
+    let originals_texts = originals_visited.map(original => original[0].trim())
+      .join("").trim()
+      .replace(/^(<br>)+/, "")
+      .replace(/(<br>)+$/, "")
+      .split(BR)
+
+    const translateds_texts = translateds_visited.map(translated => translated[0].trim())
+      .join("").trim()
+      .replace(/^(<br>)+/, "")
+      .replace(/(<br>)+$/, "")
+      .split(BR)
     let Lyrics_line_html = ''
-    for (let i = 0; i < originals.length; i++) {
-      const original = this.visit(originals[i])
-      const translated = this.visit(translateds[i])
+    for (let i = 0; i < originals_texts.length; i++) {
+      const original = originals_texts[i]
+      const translated = translateds_texts[i]
       Lyrics_line_html += `
    <div class="Lyrics-line">
     <div class="Lyrics-original"><span lang="ja">${original}</span></div>
@@ -135,38 +156,52 @@ ${this.getCSS()}
     `
   }
 
-  visitOneLine = (ctx: OneLineContext) => {
-    // const newlines = new Array(ctx.NEWLINE_list().length).join('<br>')
-    // return this.visit(ctx)
-    if (ctx.children) {
-      const res = ctx.children.map(child => {
-        return this.visit(child)
-      }).join('')
-      return res.trim();
-    }
-    return ''
-  }
+  // visitOneLine = (ctx: OneLineContext) => {
+  //   // const newlines = new Array(ctx.NEWLINE_list().length).join('<br>')
+  //   // return this.visit(ctx)
+  //   if (ctx.children) {
+  //     const res = ctx.children.map(child => {
+  //       return this.visit(child)
+  //     }).join('')
+  //     return res.trim();
+  //   }
+  //   return ''
+  // }
   visitNewline = (ctx: any) => {
-    return '\n'
+    // return '\n'
+    return BR
   }
+
+  // color
   visitColor = (ctx: ColorContext) => {
     // ctx.BRACKET_OPEN()
     // ctx.color_content().photrans(1)
     // return ctx.color_value().getText() + col;
     const color = ctx.colorValue().getText()
-    const content = this.visit(ctx.sentence())
+    const content = ctx.contentBlock_list()
+      .map(block => this.visit(block))
+      .join("")
     // const content = ctx.color_content().getText().trim()
     return `<span style="color:${color}">${content}</span>`
   }
+
+  visitColoredlink = (ctx: ColoredlinkContext) => {
+    const color = ctx.colorValue()
+    const title = ctx.STRING_list()[0].getText()
+    const text = ctx.STRING_list()[1].getText().trim()
+    return `<a href="https://zh.moegirl.org.cn/${title}" title="${title}" style=""><span style="color:${color}">${text}</span></a>`
+  }
+
   visitColorBlock = (ctx: any) => {
     const color = ctx.colorValue().getText()
     return `<span style="width: 10px; height: 10px; background-color: ${color}; display: inline-block;"></span>`
   }
 
-// visitColor(ctx: ColorContext) {
-//     console.log("Visited color: " + ctx.text);
-//     return super.visitColor(ctx);
-// }
+  visitTemplate_Lj = (ctx: Template_LjContext) => {
+    return ctx.oneLineContent_list().map(line =>
+      this.visit(line)
+    ).join('')
+  }
 }
 
 export function newParser(input: string) {

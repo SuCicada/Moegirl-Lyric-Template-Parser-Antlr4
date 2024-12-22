@@ -23,7 +23,7 @@ hiragana: STRING ;
 otherwords: STRING;
 
 // 混杂的句子
-sentence: (otherwords | photrans)+;
+//sentence: (otherwords | photrans)+;
 
 STRING: (~[\n|{}])+;
 newline: NEWLINE ;

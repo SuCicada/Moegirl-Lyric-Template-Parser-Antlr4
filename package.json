@@ -9,17 +9,15 @@
   "homepage": "https://github.com/SuCicada/Moegirl-Lyric-Template-Parser-Antlr4",
   "main": "dist/bundle.js",
   "types": "dist/types/src/index.d.ts",
-  "type": "module",
   "scripts": {
     "build": "webpack"
   },
   "dependencies": {
-    "antlr4": "^4.13.1",
+    "antlr4": "^4.13.2",
     "moegirl-lyric-template-parser-antlr4": "link:"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@types/antlr4": "^4.11.6",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.0",
     "jest": "^29.7.0",
@@ -27,8 +25,9 @@
     "ts-jest": "^29.2.4",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4",
-    "webpack": "^5.94.0",
+    "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4"
   },
   "tmp": {

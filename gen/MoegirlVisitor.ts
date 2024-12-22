@@ -8,15 +8,16 @@ import { LyricsKaiContext } from "./MoegirlParser.js";
 import { LyricsKaiAttrContext } from "./MoegirlParser.js";
 import { LyricsKaiOriginalContext } from "./MoegirlParser.js";
 import { LyricsKaiTranslatedContext } from "./MoegirlParser.js";
-import { OneLineContext } from "./MoegirlParser.js";
+import { Template_LjContext } from "./MoegirlParser.js";
+import { OneLineContentContext } from "./MoegirlParser.js";
 import { PhotransContext } from "./MoegirlParser.js";
-import { TagContext } from "./MoegirlParser.js";
 import { KanjiContext } from "./MoegirlParser.js";
 import { HiraganaContext } from "./MoegirlParser.js";
 import { OtherwordsContext } from "./MoegirlParser.js";
-import { SentenceContext } from "./MoegirlParser.js";
 import { NewlineContext } from "./MoegirlParser.js";
 import { ColorContext } from "./MoegirlParser.js";
+import { ContentBlockContext } from "./MoegirlParser.js";
+import { ColoredlinkContext } from "./MoegirlParser.js";
 import { ColorValueContext } from "./MoegirlParser.js";
 import { ColorBlockContext } from "./MoegirlParser.js";
 import { PhotransButtonContext } from "./MoegirlParser.js";
@@ -61,23 +62,23 @@ export default class MoegirlVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitLyricsKaiTranslated?: (ctx: LyricsKaiTranslatedContext) => Result;
 	/**
-	 * Visit a parse tree produced by `MoegirlParser.oneLine`.
+	 * Visit a parse tree produced by `MoegirlParser.template_Lj`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitOneLine?: (ctx: OneLineContext) => Result;
+	visitTemplate_Lj?: (ctx: Template_LjContext) => Result;
+	/**
+	 * Visit a parse tree produced by `MoegirlParser.oneLineContent`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitOneLineContent?: (ctx: OneLineContentContext) => Result;
 	/**
 	 * Visit a parse tree produced by `MoegirlParser.photrans`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitPhotrans?: (ctx: PhotransContext) => Result;
-	/**
-	 * Visit a parse tree produced by `MoegirlParser.tag`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitTag?: (ctx: TagContext) => Result;
 	/**
 	 * Visit a parse tree produced by `MoegirlParser.kanji`.
 	 * @param ctx the parse tree
@@ -97,12 +98,6 @@ export default class MoegirlVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitOtherwords?: (ctx: OtherwordsContext) => Result;
 	/**
-	 * Visit a parse tree produced by `MoegirlParser.sentence`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitSentence?: (ctx: SentenceContext) => Result;
-	/**
 	 * Visit a parse tree produced by `MoegirlParser.newline`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -114,6 +109,18 @@ export default class MoegirlVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitColor?: (ctx: ColorContext) => Result;
+	/**
+	 * Visit a parse tree produced by `MoegirlParser.contentBlock`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitContentBlock?: (ctx: ContentBlockContext) => Result;
+	/**
+	 * Visit a parse tree produced by `MoegirlParser.coloredlink`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitColoredlink?: (ctx: ColoredlinkContext) => Result;
 	/**
 	 * Visit a parse tree produced by `MoegirlParser.colorValue`.
 	 * @param ctx the parse tree

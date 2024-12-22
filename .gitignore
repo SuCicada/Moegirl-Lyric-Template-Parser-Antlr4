@@ -143,3 +143,4 @@ dist
 gen/*
 !gen/Moegirl*
 
+antlr4/gen

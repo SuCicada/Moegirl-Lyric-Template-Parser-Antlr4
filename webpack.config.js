@@ -37,6 +37,7 @@ module.exports = {
         library: 'MoegirlLyric',  // 设置导出的库名称
         // libraryTarget: 'var',  // 使用全局变量方式导出
         libraryTarget: 'umd',  // 通用模块定义
-        globalObject: 'this',
+        // globalObject: 'this',
+        globalObject: 'typeof self !== "undefined" ? self : this',
     },
 };

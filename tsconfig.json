@@ -8,8 +8,10 @@
       "es2017",
       "esnext.asynciterable"
     ],
-    "declaration": true,  // ← 追記（コンパイルしたtsファイルの中でexportしているもの全ての型定義ファイルを出力する）
-    "declarationDir": "./dist/types",  // 声明文件输出目录
+    "declaration": true,
+    // ← 追記（コンパイルしたtsファイルの中でexportしているもの全ての型定義ファイルを出力する）
+    "declarationDir": "./dist/types",
+    // 声明文件输出目录
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -37,9 +39,9 @@
       "@/*": [
         "src/*"
       ],
-        "@/gen/*": [
-            "gen/*"
-        ]
+      "@/gen/*": [
+        "gen/*"
+      ]
     }
   },
   "exclude": [

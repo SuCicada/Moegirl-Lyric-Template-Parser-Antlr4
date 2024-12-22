@@ -24,7 +24,7 @@ lyricsKai
   NEWLINE* lyricsKaiOriginal
 //  NEWLINE*
 
-  (lyricsKaiTranslated NEWLINE*)?
+  (lyricsKaiTranslated  )?
 
   BRACKET_CLOSE
   ;
@@ -35,51 +35,57 @@ lyricsKaiAttr
 
 lyricsKaiOriginal
   :  '|original='
-      block
+//      block
+  oneLineContent+
   ;
 lyricsKaiTranslated
   :  '|translated='
-      block
+//      block
+  oneLineContent+
   ;
 
 //KEY:[a-zA-Z_][a-zA-Z_0-9]*;
 //LYRICSKAI_ATTR_KEY : 'lstyle' | 'rstyle'|KEY ;
-block:
-  (oneLineContent  )+
-  ;
-block1:
-  (BRACKET_OPEN ('lj|' | 'lang|zh|')
-//    oneLineContent
-//    oneLine+
-  lyricsLines
-  BRACKET_CLOSE)
+//block:
+//  (oneLineContent  )+
+//  ;
+//block1:
+//  (BRACKET_OPEN ('lj|' | 'lang|zh|')
+////    oneLineContent
+////    oneLine+
+//  lyricsLines
+//  BRACKET_CLOSE)
+//
+//  | lyricsLines
+//  ;
 
-  | lyricsLines
-  ;
-
-lyricsLines:
+//lyricsLines:
 //  oneLineContent
 //  oneLine+
-  (oneLineContent  )+
-;
+//  (oneLineContent  )+
+//;
 
 //oneLine:
 //  newline* oneLineContent EOF?
 //;
 
-ignore:
+template_Lj:
   (BRACKET_OPEN ('lj|' | 'lang|zh|')
   //    oneLineContent
   //    oneLine+
-    lyricsLines
+//    lyricsLines
+//    block
+    oneLineContent+
     BRACKET_CLOSE)
     ;
+
 oneLineContent:
-  (otherwords | photrans | color
+     otherwords
+    | photrans
+    | color
     | colorBlock
-    | ignore
+    | template_Lj
     | newline
-    )+
   ;
 
 

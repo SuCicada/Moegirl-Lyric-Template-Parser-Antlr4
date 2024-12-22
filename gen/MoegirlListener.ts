@@ -8,15 +8,16 @@ import { LyricsKaiContext } from "./MoegirlParser.js";
 import { LyricsKaiAttrContext } from "./MoegirlParser.js";
 import { LyricsKaiOriginalContext } from "./MoegirlParser.js";
 import { LyricsKaiTranslatedContext } from "./MoegirlParser.js";
-import { OneLineContext } from "./MoegirlParser.js";
+import { Template_LjContext } from "./MoegirlParser.js";
+import { OneLineContentContext } from "./MoegirlParser.js";
 import { PhotransContext } from "./MoegirlParser.js";
-import { TagContext } from "./MoegirlParser.js";
 import { KanjiContext } from "./MoegirlParser.js";
 import { HiraganaContext } from "./MoegirlParser.js";
 import { OtherwordsContext } from "./MoegirlParser.js";
-import { SentenceContext } from "./MoegirlParser.js";
 import { NewlineContext } from "./MoegirlParser.js";
 import { ColorContext } from "./MoegirlParser.js";
+import { ContentBlockContext } from "./MoegirlParser.js";
+import { ColoredlinkContext } from "./MoegirlParser.js";
 import { ColorValueContext } from "./MoegirlParser.js";
 import { ColorBlockContext } from "./MoegirlParser.js";
 import { PhotransButtonContext } from "./MoegirlParser.js";
@@ -78,15 +79,25 @@ export default class MoegirlListener extends ParseTreeListener {
 	 */
 	exitLyricsKaiTranslated?: (ctx: LyricsKaiTranslatedContext) => void;
 	/**
-	 * Enter a parse tree produced by `MoegirlParser.oneLine`.
+	 * Enter a parse tree produced by `MoegirlParser.template_Lj`.
 	 * @param ctx the parse tree
 	 */
-	enterOneLine?: (ctx: OneLineContext) => void;
+	enterTemplate_Lj?: (ctx: Template_LjContext) => void;
 	/**
-	 * Exit a parse tree produced by `MoegirlParser.oneLine`.
+	 * Exit a parse tree produced by `MoegirlParser.template_Lj`.
 	 * @param ctx the parse tree
 	 */
-	exitOneLine?: (ctx: OneLineContext) => void;
+	exitTemplate_Lj?: (ctx: Template_LjContext) => void;
+	/**
+	 * Enter a parse tree produced by `MoegirlParser.oneLineContent`.
+	 * @param ctx the parse tree
+	 */
+	enterOneLineContent?: (ctx: OneLineContentContext) => void;
+	/**
+	 * Exit a parse tree produced by `MoegirlParser.oneLineContent`.
+	 * @param ctx the parse tree
+	 */
+	exitOneLineContent?: (ctx: OneLineContentContext) => void;
 	/**
 	 * Enter a parse tree produced by `MoegirlParser.photrans`.
 	 * @param ctx the parse tree
@@ -97,16 +108,6 @@ export default class MoegirlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitPhotrans?: (ctx: PhotransContext) => void;
-	/**
-	 * Enter a parse tree produced by `MoegirlParser.tag`.
-	 * @param ctx the parse tree
-	 */
-	enterTag?: (ctx: TagContext) => void;
-	/**
-	 * Exit a parse tree produced by `MoegirlParser.tag`.
-	 * @param ctx the parse tree
-	 */
-	exitTag?: (ctx: TagContext) => void;
 	/**
 	 * Enter a parse tree produced by `MoegirlParser.kanji`.
 	 * @param ctx the parse tree
@@ -138,16 +139,6 @@ export default class MoegirlListener extends ParseTreeListener {
 	 */
 	exitOtherwords?: (ctx: OtherwordsContext) => void;
 	/**
-	 * Enter a parse tree produced by `MoegirlParser.sentence`.
-	 * @param ctx the parse tree
-	 */
-	enterSentence?: (ctx: SentenceContext) => void;
-	/**
-	 * Exit a parse tree produced by `MoegirlParser.sentence`.
-	 * @param ctx the parse tree
-	 */
-	exitSentence?: (ctx: SentenceContext) => void;
-	/**
 	 * Enter a parse tree produced by `MoegirlParser.newline`.
 	 * @param ctx the parse tree
 	 */
@@ -167,6 +158,26 @@ export default class MoegirlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitColor?: (ctx: ColorContext) => void;
+	/**
+	 * Enter a parse tree produced by `MoegirlParser.contentBlock`.
+	 * @param ctx the parse tree
+	 */
+	enterContentBlock?: (ctx: ContentBlockContext) => void;
+	/**
+	 * Exit a parse tree produced by `MoegirlParser.contentBlock`.
+	 * @param ctx the parse tree
+	 */
+	exitContentBlock?: (ctx: ContentBlockContext) => void;
+	/**
+	 * Enter a parse tree produced by `MoegirlParser.coloredlink`.
+	 * @param ctx the parse tree
+	 */
+	enterColoredlink?: (ctx: ColoredlinkContext) => void;
+	/**
+	 * Exit a parse tree produced by `MoegirlParser.coloredlink`.
+	 * @param ctx the parse tree
+	 */
+	exitColoredlink?: (ctx: ColoredlinkContext) => void;
 	/**
 	 * Enter a parse tree produced by `MoegirlParser.colorValue`.
 	 * @param ctx the parse tree

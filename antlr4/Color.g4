@@ -6,9 +6,13 @@ color
   'color'
   '|' colorValue
   '|' NEWLINE*
-    ((sentence|color|coloredlink) newline*)+
+   contentBlock+
    BRACKET_CLOSE
   ;
+contentBlock
+   : (otherwords | photrans | color | coloredlink) newline*
+   ;
+
 // {{Coloredlink|颜色|页面链接|欲显示文字}}
 coloredlink:
   BRACKET_OPEN

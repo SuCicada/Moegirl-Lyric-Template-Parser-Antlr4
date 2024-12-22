@@ -1,6 +1,5 @@
 import MoegirlLexer from '@/gen/MoegirlLexer';
 import MoegirlParser, {
-  ColorContext, PhotransContext, SentenceContext
 } from '@/gen/MoegirlParser';
 import MoegirlVisitor from '../gen/MoegirlVisitor';
 import {CharStream, CommonTokenStream, InputStream, CharStreams} from 'antlr4';
